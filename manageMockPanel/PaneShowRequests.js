@@ -10,7 +10,7 @@ var PaneShowRequests = function() {
 // Draw pane
 PaneShowRequests.prototype.draw = function() {
 	var that = this;
-	console.log(this.$container);
+
 	// Get requests and fill table
 	this.apiBridge.getRequestList(function (requestList) {
 		var $contentTableBody = that.$container.find('tbody');
@@ -39,6 +39,7 @@ PaneShowRequests.prototype.draw = function() {
 // Bind buttons to actions
 PaneShowRequests.prototype.bindEvents = function() {
 	var that = this;
+	this.$container.unbind();
 
 	// Show preview
 	this.$container.on('click', 'button[data-action=requestPreview]', function() {

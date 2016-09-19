@@ -41,6 +41,7 @@ PaneMockList.prototype.draw = function() {
 // Bind events for checkboxes and buttons
 PaneMockList.prototype.bindEvents = function() {
 	var that = this;
+	this.$container.unbind();
 
 	// Enable/Disable mock via checkbox
 	this.$container.on('change', 'input[data-action=enableMock]', function() {
