@@ -1,0 +1,65 @@
+var PaneMockSetList = function() {
+    this.$container = $('#PaneMockSetList');
+    this.apiBridge = new ApiBridge();
+    
+    this.bindEvents();
+};
+
+PaneMockSetList.prototype.draw = function (){
+    var that = this;
+    this.apiBridge.getMockSetList(function (mockSetList) {
+        var $contentTableBody = that.$container.find('tbody');
+        var tableContent = '';
+
+        // Remove old content in order to add data to the already existing data and draw the table anew
+        $contentTableBody.empty()
+
+        // Draw table content
+        mockSetList.forEach(function (mockSetData) {
+            var rowContent = '';
+            rowContent += '<td>' + mockSetData.name + '</label></td>';
+            rowContent += '<td>' + mockSetData.description + '</td>';
+            rowContent += '<td>';
+            rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="activate">Activate</button>';
+            rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="deactivate">Deactivate</button>';
+            rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="edit">Edit</button>';
+            rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="delete">Delete</button>';            
+            rowContent += '</td>';
+
+            tableContent += '<tr>' + rowContent + '</tr>';
+        });
+
+        $contentTableBody.append($(tableContent));
+    });
+};
+
+PaneMockSetList.prototype.bindEvents = function (){
+    var that = this;
+    
+    this.$container.on('click', 'button[data-action=activate]', function() {
+        that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {
+            console.log('Activated mocks in mock set.');
+        });
+    });
+    
+    this.$container.on('click', 'button[data-action=deactivate]', function() {
+        that.apiBridge.deactivateMockSet($(this).data('mockset-id'), function() {
+            console.log('Deactivated mocks in mock set.');
+        });
+    });
+    
+    this.$container.on('click', 'button[data-action=edit]', function() {
+        var updateMockPane = new PaneCreateMockSet();
+        
+        that.apiBridge.getMockSet($(this).data('mockId'), function (mock) {
+            //updateMockPane.fillCreateMockSetFields(mock.message.id, mock.message.name,
+              //      mock.message.description, mock.message.requestUri, mock.message.requestMethod, mock.message.requestBody, mock.message.responseBody);
+        });   
+    });
+   
+   this.$container.on('click', 'button[data-action=delete]', function() {
+        that.apiBridge.deleteMock($(this).data('mockset-id'), function() {
+            console.log('Deleted mock set.');
+        });
+    });
+};

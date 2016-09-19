@@ -20,6 +20,8 @@
     <script src="PaneCreateMock.js"></script>
     <script src="PaneShowRequests.js"></script>
     <script src="PaneTrackMocks.js"></script>
+    <script src="PaneMockSetList.js"></script>
+    <script src="PaneCreateMockSet.js"></script>
 
     <script src="manageMockPanel.js"></script>
 
@@ -31,8 +33,10 @@
     <nav data-default-pane="PaneMockList">
       <button data-pane="PaneShowRequests">Requests</button>
       <button data-pane="PaneMockList" >Mock List</button>
-      <button data-pane="PaneCreateMock">Create</button>
+      <button data-pane="PaneCreateMock">Create M.</button>
       <button data-pane="PaneTrackMocks">Track Mocks</button>
+      <button data-pane="PaneMockSetList">Mock Set List</button>
+      <button data-pane="PaneCreateMockSet">Create MS.</button>
     </nav>
 
     <div id="previewWindow">
@@ -141,6 +145,43 @@
           </tbody>
         </table>
       </div>
+        
+    <div id="PaneMockSetList">
+        <h1>Mock Sets</h1>
+        <table id="mockSetList">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th colspan="3">Tools</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+        
+    <div id="PaneCreateMockSet">
+    <h1>Create/Update Mock Set</h1>
+    <form id="formManuallyCreateMockSet" method="POST" action="#">
+      <table>
+        <tr>
+          <td><label for="form_name">Name</label></td>
+          <td><input id="form_name" name="name"></td>
+        </tr>
+        <tr>
+          <td><label for="form_description">Description</label></td>
+          <td><textarea id="form_description" name="description"></textarea></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button id="form_submit">Submit</button></td>
+        </tr>
+      </table>
+      <input id="form_id" type="hidden">
+    </form>
+    </div>
+        
     </div>
   </body>
 </html>
