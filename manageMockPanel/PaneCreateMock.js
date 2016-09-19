@@ -19,7 +19,7 @@ PaneCreateMock.prototype.bindEvents = function() {
 
 	var that = this;
 	this.$container.unbind();
-	
+
 	// Jquery serialize does not create the data as we want it, grml
 	this.$form.submit(function (event) {
 		event.preventDefault();
@@ -58,7 +58,7 @@ PaneCreateMock.prototype.fillCreateMockFields = function (id, name, desc, reques
 
 	// Autoformat code
 	var responseBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(responseBody);
-	var requestBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(requestBody);
+	//var requestBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(requestBody);
 
 	// Fill pane
 	$requestUriField.val(requestUri);
@@ -79,7 +79,7 @@ PaneCreateMock.prototype.fillCreateMockFields = function (id, name, desc, reques
 		$descField.val(desc);
 	}
 
-	if (requestBodyFormatted) {
-		$requestBodyField.val(requestBodyFormatted);
+	if (requestBody) {
+		$requestBodyField.val(requestBody);
 	}
 }
