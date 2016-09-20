@@ -37,6 +37,7 @@ PaneCreateMock.prototype.bindEvents = function() {
 		that.apiBridge.createMock(data, function (response) {
 			console.log('createMock', response);
 			that.draw();
+			// This seem to cause a major performance problem
 			new UiNavigation().switchPanel('PaneMockList');
 		});
 	});
