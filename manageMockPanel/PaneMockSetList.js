@@ -58,8 +58,9 @@ PaneMockSetList.prototype.bindEvents = function (){
     });
    
    this.$container.on('click', 'button[data-action=delete]', function() {
-        that.apiBridge.deleteMock($(this).data('mockset-id'), function() {
-            console.log('Deleted mock set.');
+        that.apiBridge.deleteMockSet($(this).data('mockset-id'), function() {
+            console.log('Deleted mock set: ', $(this).data('mockset-id'));
+            that.draw();
         });
     });
 };
