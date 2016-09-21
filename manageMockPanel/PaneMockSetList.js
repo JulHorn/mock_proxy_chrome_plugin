@@ -1,7 +1,6 @@
 var PaneMockSetList = function() {
     this.$container = $('#PaneMockSetList');
     this.apiBridge = new ApiBridge();
-    
     this.bindEvents();
 };
 
@@ -35,28 +34,32 @@ PaneMockSetList.prototype.draw = function (){
 
 PaneMockSetList.prototype.bindEvents = function (){
     var that = this;
-    
+
+    // Activate mocks in mock set
     this.$container.on('click', 'button[data-action=activate]', function() {
         that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {
             console.log('Activated mocks in mock set.');
         });
     });
-    
+
+    // Deactivate mocks in mock set
     this.$container.on('click', 'button[data-action=deactivate]', function() {
         that.apiBridge.deactivateMockSet($(this).data('mockset-id'), function() {
             console.log('Deactivated mocks in mock set.');
         });
     });
-    
+
+    // Edit mock set
     this.$container.on('click', 'button[data-action=edit]', function() {
         var updateMockPane = new PaneCreateMockSet();
         
-        that.apiBridge.getMockSet($(this).data('mockId'), function (mock) {
-            //updateMockPane.fillCreateMockSetFields(mock.message.id, mock.message.name,
-              //      mock.message.description, mock.message.requestUri, mock.message.requestMethod, mock.message.requestBody, mock.message.responseBody);
+        that.apiBridge.getMockSet($(this).data('mockset-id'), function (mockSet) {
+            updateMockPane.fillFields(mockSet.message.id, mockSet.message.name,
+                    mockSet.message.description, mockSet.message.mockIds);
         });   
     });
-   
+
+    // Delete mock set
    this.$container.on('click', 'button[data-action=delete]', function() {
         that.apiBridge.deleteMockSet($(this).data('mockset-id'), function() {
             console.log('Deleted mock set: ', $(this).data('mockset-id'));

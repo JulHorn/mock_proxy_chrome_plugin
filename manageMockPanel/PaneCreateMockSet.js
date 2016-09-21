@@ -1,4 +1,5 @@
-var PaneCreateMockSet = function() {
+// Constructor to init stuff
+var PaneCreateMockSet = function(navigation) {
     this.$container = $('#PaneCreateMockSet');
     this.$form = $('#formManuallyCreateMockSet');
     this.$multiSelect = $('#mockSetSelecter');
@@ -6,6 +7,7 @@ var PaneCreateMockSet = function() {
     this.bindEvents();
 };
 
+// Draw pane
 PaneCreateMockSet.prototype.draw = function() {
     var that = this;
     
@@ -22,12 +24,9 @@ PaneCreateMockSet.prototype.draw = function() {
             that.$multiSelect.multiSelect('addOption', { value: mock.id, text: mock.name});
         });
     });
-
-
-
-
 };
 
+// Bind events
 PaneCreateMockSet.prototype.bindEvents = function() {
 	var that = this;
 	
@@ -54,8 +53,27 @@ PaneCreateMockSet.prototype.bindEvents = function() {
 
 PaneCreateMockSet.prototype.fillFields = function (id, name, description, mockIds) {
 
-	// Go to create tab
-	new UiNavigation().switchPanel('PaneCreateMock');
+	var $idField = $('#set_form_id');
+	var $nameField = $('#set_form_name');
+	var $descField = $('#set_form_description');
 
-    this.$multiSelect.multiSelect('select', mockIds);
+	// Go to create tab
+	new UiNavigation().switchPanel('PaneCreateMockSet');
+
+	// Fill pane
+	// Only set fields if value is not undefined to avoid the text
+	// undefined in the text field
+	if (id) {
+		$idField.val(id);
+	}
+
+	if (name) {
+		$nameField.val(name);
+	}
+
+	if (description) {
+		$descField.val(description);
+	}
+
+	this.$multiSelect.multiSelect('select', mockIds);
 };
