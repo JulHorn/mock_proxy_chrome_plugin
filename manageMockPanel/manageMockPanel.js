@@ -15,8 +15,11 @@ $(document).ready(function() {
 	if (document.location.hash === '#popup') {
 		styleSheetName = 'popup';
 	}
-	else {
+	else if (document.location.hash === '#panel') {
 		styleSheetName = 'panel';
+	}
+	else {
+		styleSheetName = 'page';
 	}
 
 	$('head').append('<link rel="stylesheet" href="../css/'+styleSheetName+'.css">');

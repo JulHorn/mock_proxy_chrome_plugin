@@ -11,12 +11,13 @@ var PaneMockList = function() {
 // Draw this pane
 PaneMockList.prototype.draw = function() {
 	var that = this;
-	this.apiBridge.getMockList(function (mockList) {
-		var $contentTableBody = that.$container.find('tbody');
-		var tableContent = '';
 
-		// Remove old content in order to add data to the already existing data and draw the table anew
-		$contentTableBody.empty()
+	// Remove old content in order to add data to the already existing data and draw the table anew
+	var $contentTableBody = that.$container.find('tbody');
+	$contentTableBody.empty();
+
+	this.apiBridge.getMockList(function (mockList) {
+		var tableContent = '';
 
 		// Draw table content
 		mockList.forEach(function (mockData) {

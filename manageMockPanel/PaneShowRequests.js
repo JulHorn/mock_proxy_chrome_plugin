@@ -11,13 +11,13 @@ var PaneShowRequests = function() {
 PaneShowRequests.prototype.draw = function() {
 	var that = this;
 
+	// Remove old content in order to add data to the already existing data and draw the table anew
+	var $contentTableBody = that.$container.find('tbody');
+	$contentTableBody.empty();
+
 	// Get requests and fill table
 	this.apiBridge.getRequestList(function (requestList) {
-		var $contentTableBody = that.$container.find('tbody');
 		var tableContent = '';
-
-		// Remove old content in order to add data to the already existing data and draw the table anew
-		$contentTableBody.empty();
 
 		// Draw table content
 		requestList.forEach(function (entry) {

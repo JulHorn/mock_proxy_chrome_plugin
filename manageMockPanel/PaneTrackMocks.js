@@ -10,12 +10,12 @@ var PaneTrackMocks = function() {
 PaneTrackMocks.prototype.draw = function() {
 	var that = this;
 
-	this.apiBridge.getReturnedMocks(5, function (mockList) {
-		var $contentTableBody = that.$container.find('tbody');
-		var tableContent = '';
+	var $contentTableBody = that.$container.find('tbody');
+	// Remove old content in order to add data to the already existing data and draw the table anew
+	$contentTableBody.empty()
 
-		// Remove old content in order to add data to the already existing data and draw the table anew
-		$contentTableBody.empty()
+	this.apiBridge.getReturnedMocks(5, function (mockList) {
+		var tableContent = '';
 
 		mockList.forEach(function (mock, index) {
 			var rowContent = '';

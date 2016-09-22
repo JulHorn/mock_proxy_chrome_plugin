@@ -2,16 +2,18 @@
 <html>
 <head>
     <title>Create Mocks</title>
-    <script src="../lib/apiConnector.js"></script>
-    <script src="../lib/apiBridge.js"></script>
+
     <link rel="stylesheet" href="../css/base.css"/>
     <link rel="stylesheet" href="../lib/highlight.css">
     <link rel="stylesheet" href="manageMockPanel.css"/>
 
-
     <script src="../lib/highlight.js"></script>
     <script src="../lib/vkbeautify.js"></script>
     <script src="../lib/jquery.js"></script>
+
+    <script src="../lib/apiConnector.js"></script>
+    <script src="../lib/apiBridge.js"></script>
+
 
     <script src="../lib/uiNavigation.js"></script>
     <script src="../lib/uiPreview.js"></script>
@@ -32,14 +34,32 @@
 </head>
 <body>
 
-<nav data-default-pane="PaneMockList">
-    <button data-pane="PaneShowRequests">Requests</button>
-    <button data-pane="PaneMockList">Mock List</button>
-    <button data-pane="PaneCreateMock">Create M.</button>
-    <button data-pane="PaneTrackMocks">Track Mocks</button>
-    <button data-pane="PaneMockSetList">Mock Set List</button>
-    <button data-pane="PaneCreateMockSet">Create MS.</button>
+<nav class="main" data-default-pane="PaneMockList">
+    <div>
+        <button data-pane="PaneShowRequests">Requests</button>
+        <button data-pane="PaneMockList">Mocks</button>
+        <button data-pane="PaneMockSetList">Sets</button>
+    </div>
+
+    <div class="tools">
+        <button data-tool="OpenWindow" data-href="/options/options.html">Options</button>
+        <button data-tool="OpenWindow" data-href="/manageMockPanel/manageMockPanel.html">Open in Window</button>
+    </div>
 </nav>
+
+<nav class="sub">
+    <button data-pane="PaneMockList">List</button>
+    <button data-pane="PaneCreateMock">Create</button>
+    <button data-pane="PaneTrackMocks">Track</button>
+</nav>
+
+<nav class="sub">
+    <button data-pane="PaneMockSetList">List</button>
+    <button data-pane="PaneCreateMockSet">Create</button>
+</nav>
+
+
+
 
 <div id="previewWindow">
     <div id="previewLanguage">
@@ -71,6 +91,8 @@
     </div>
 
     <div id="PaneMockList">
+
+
         <h1>Mocklist</h1>
         <button data-action="trackMocks">Track Mocks</button>
         <table id="mockList">

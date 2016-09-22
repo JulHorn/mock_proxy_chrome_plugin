@@ -6,12 +6,13 @@ var PaneMockSetList = function() {
 
 PaneMockSetList.prototype.draw = function (){
     var that = this;
-    this.apiBridge.getMockSetList(function (mockSetList) {
-        var $contentTableBody = that.$container.find('tbody');
-        var tableContent = '';
 
-        // Remove old content in order to add data to the already existing data and draw the table anew
-        $contentTableBody.empty()
+    var $contentTableBody = that.$container.find('tbody');
+    // Remove old content in order to add data to the already existing data and draw the table anew
+    $contentTableBody.empty()
+
+    this.apiBridge.getMockSetList(function (mockSetList) {
+        var tableContent = '';
 
         // Draw table content
         mockSetList.forEach(function (mockSetData) {
@@ -24,7 +25,6 @@ PaneMockSetList.prototype.draw = function (){
             rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="edit">Edit</button>';
             rowContent += '<button data-mockset-id="' + mockSetData.id + '" data-action="delete">Delete</button>';            
             rowContent += '</td>';
-
             tableContent += '<tr>' + rowContent + '</tr>';
         });
 

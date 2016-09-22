@@ -18,12 +18,13 @@ PaneCreateMockSet.prototype.draw = function() {
     // http://loudev.com/
     this.$multiSelect.multiSelect();
     this.$multiSelect.multiSelect('deselect_all');
-    
-    this.apiBridge.getMockList(function(mockList) {
-        mockList.forEach(function (mock) {
-            that.$multiSelect.multiSelect('addOption', { value: mock.id, text: mock.name});
-        });
-    });
+
+	this.apiBridge.getMockList(function(mockList) {
+		mockList.forEach(function (mock) {
+			that.$multiSelect.multiSelect('addOption', { value: mock.id, text: mock.name});
+		});
+	});
+
 };
 
 // Bind events
