@@ -39,7 +39,8 @@ PaneShowRequests.prototype.draw = function() {
 // Bind buttons to actions
 PaneShowRequests.prototype.bindEvents = function() {
 	var that = this;
-	this.$container.unbind();
+
+	this.$container.find('*').off();
 
 	// Show preview
 	this.$container.on('click', 'button[data-action=requestPreview]', function() {

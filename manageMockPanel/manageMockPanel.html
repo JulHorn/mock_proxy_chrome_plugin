@@ -47,13 +47,13 @@
     </div>
 </nav>
 
-<nav class="sub">
+<nav class="sub" data-parent-nav="PaneMockList">
     <button data-pane="PaneMockList">List</button>
     <button data-pane="PaneCreateMock">Create</button>
     <button data-pane="PaneTrackMocks">Track</button>
 </nav>
 
-<nav class="sub">
+<nav class="sub" data-parent-nav="PaneMockSetList">
     <button data-pane="PaneMockSetList">List</button>
     <button data-pane="PaneCreateMockSet">Create</button>
 </nav>
@@ -62,11 +62,11 @@
 
 
 <div id="previewWindow">
-    <div id="previewLanguage">
+    <nav id="previewLanguage">
         <button data-language="xml">XML</button>
         <button data-language="json">JSON</button>
         <button data-language="">PlainText</button>
-    </div>
+    </nav>
     <button class="closeButton" data-action="close">X</button>
     <pre><code></code></pre>
 

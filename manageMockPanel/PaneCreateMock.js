@@ -18,10 +18,11 @@ PaneCreateMock.prototype.draw = function() {
 PaneCreateMock.prototype.bindEvents = function() {
 
 	var that = this;
-	this.$container.unbind();
+
+	this.$container.find('*').off();
 
 	// Jquery serialize does not create the data as we want it, grml
-	this.$form.submit(function (event) {
+	this.$form.on('submit', function (event) {
 		event.preventDefault();
 		var data = {
 			'id': $('#form_id').val(),

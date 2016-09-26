@@ -35,6 +35,8 @@ PaneMockSetList.prototype.draw = function (){
 PaneMockSetList.prototype.bindEvents = function (){
     var that = this;
 
+    this.$container.find('*').off();
+
     // Activate mocks in mock set
     this.$container.on('click', 'button[data-action=activate]', function() {
         that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {

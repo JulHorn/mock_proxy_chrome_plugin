@@ -30,9 +30,10 @@ PaneCreateMockSet.prototype.draw = function() {
 // Bind events
 PaneCreateMockSet.prototype.bindEvents = function() {
 	var that = this;
-	
-	this.$container.unbind();
-	this.$form.submit(function(event) {
+
+	this.$container.find("*").off();
+
+	this.$form.on('submit', function(event) {
 		event.preventDefault();
 		
 		var data = {
