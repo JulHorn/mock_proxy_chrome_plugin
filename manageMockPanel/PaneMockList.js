@@ -87,7 +87,9 @@ PaneMockList.prototype.bindEvents = function() {
 
 	// Track mocks
 	this.$container.on('click.PaneMockList', 'button[data-action=trackMocks]', function() {
-		that.apiBridge.getReturnedMocks(5, function (mockList) {
+		var numberOfTrackedMocks = $('#mockListCountTrackMockField').val();
+
+		that.apiBridge.getReturnedMocks(numberOfTrackedMocks, function (mockList) {
 			var resultList = [];
 			var mockTrackFields = $('span[data-mock-action="displayTrackedMock"]');
 
@@ -107,7 +109,7 @@ PaneMockList.prototype.bindEvents = function() {
 
 			// Clear old values in the labels
 			mockTrackFields.each(function () {
-				$(this).val('');
+				$(this).empty();
 			});
 
 			// Go through result list and add text
