@@ -5,6 +5,8 @@ var PaneCreateMockSet = function(navigation) {
     this.$multiSelect = $('#mockSetSelecter');
     this.apiBridge = new ApiBridge();
     this.bindEvents();
+
+	this.$multiSelect.multiSelect();
 };
 
 // Draw pane
@@ -16,7 +18,7 @@ PaneCreateMockSet.prototype.draw = function() {
 
     // Make multi select box fancy
     // http://loudev.com/
-    this.$multiSelect.multiSelect();
+
     this.$multiSelect.multiSelect('deselect_all');
 
 	this.apiBridge.getMockList(function(mockList) {
@@ -31,9 +33,9 @@ PaneCreateMockSet.prototype.draw = function() {
 PaneCreateMockSet.prototype.bindEvents = function() {
 	var that = this;
 
-	this.$container.find("*").off();
+	this.$container.find("*.PaneCreateMockSet").off();
 
-	this.$form.on('submit', function(event) {
+	this.$form.on('submit.PaneCreateMockSet', function(event) {
 		event.preventDefault();
 		
 		var data = {

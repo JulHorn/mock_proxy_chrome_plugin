@@ -42,10 +42,10 @@ PaneMockList.prototype.draw = function() {
 // Bind events for checkboxes and buttons
 PaneMockList.prototype.bindEvents = function() {
 	var that = this;
-	this.$container.find('*').off();
+	this.$container.find('*.PaneMockList').off();
 
 	// Enable/Disable mock via checkbox
-	this.$container.on('change', 'input[data-action=enableMock]', function() {
+	this.$container.on('change.PaneMockList', 'input[data-action=enableMock]', function() {
 		var mockId = $(this).data('mockId');
 		if (this.checked) {
 			that.apiBridge.enableMock(mockId, function (response) {
@@ -61,7 +61,7 @@ PaneMockList.prototype.bindEvents = function() {
 	});
 
 	// Delete mock
-	this.$container.on('click', 'button[data-action=delete]', function() {
+	this.$container.on('click.PaneMockList', 'button[data-action=delete]', function() {
 		var mockId = $(this).data('mockId');
 		that.apiBridge.deleteMock(mockId, function (response) {
 			console.log('deleteMock', response);
@@ -70,13 +70,13 @@ PaneMockList.prototype.bindEvents = function() {
 	});
 
 	// Show preview
-	this.$container.on('click', 'button[data-action=preview]', function() {
+	this.$container.on('click.PaneMockList', 'button[data-action=preview]', function() {
 		var mockData = decodeURI($(this).data('mockData'));
 		that.preview.setContent(mockData).show();
 	});
 
 	// Edit mock
-	this.$container.on('click', 'button[data-action=edit]', function() {
+	this.$container.on('click.PaneMockList', 'button[data-action=edit]', function() {
 		var $updateMockPane = new PaneCreateMock();
 
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
@@ -86,7 +86,7 @@ PaneMockList.prototype.bindEvents = function() {
 	});
 
 	// Track mocks
-	this.$container.on('click', 'button[data-action=trackMocks]', function() {
+	this.$container.on('click.PaneMockList', 'button[data-action=trackMocks]', function() {
 		that.apiBridge.getReturnedMocks(5, function (mockList) {
 			var resultList = [];
 			var mockTrackFields = $('span[data-mock-action="displayTrackedMock"]');

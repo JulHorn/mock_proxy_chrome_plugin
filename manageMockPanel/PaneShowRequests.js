@@ -40,17 +40,17 @@ PaneShowRequests.prototype.draw = function() {
 PaneShowRequests.prototype.bindEvents = function() {
 	var that = this;
 
-	this.$container.find('*').off();
+	this.$container.find('*.PaneShowRequests').off();
 
 	// Show preview
-	this.$container.on('click', 'button[data-action=requestPreview]', function() {
+	this.$container.on('click.PaneShowRequests', 'button[data-action=requestPreview]', function() {
 		console.log(this);
 		var requestData = decodeURI($(this).data('request-data'));
 		that.preview.setContent(requestData).show();
 	});
 
 	// Delete all requests
-	this.$container.on('click', 'button[data-action=deleteRequests]', function() {
+	this.$container.on('click.PaneShowRequests', 'button[data-action=deleteRequests]', function() {
 		that.apiBridge.clearRequestList(function (response) {
 			console.log('Cleared requests.', response);
 			that.draw();
@@ -58,7 +58,7 @@ PaneShowRequests.prototype.bindEvents = function() {
 	});
 
 	// Get the request which is associated with the button and fill its data into the create mock pane
-	this.$container.on('click', 'button[data-action=addToMock]', function() {
+	this.$container.on('click.PaneShowRequests', 'button[data-action=addToMock]', function() {
 		that.apiBridge.getRequest($(this).data('request-id'), function (request) {
 			// Check if the request body is an empty object and call the create mock method with null if it is the case
 			// to avoid the [Object object] string

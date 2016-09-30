@@ -36,9 +36,9 @@ PaneTrackMocks.prototype.draw = function() {
 PaneTrackMocks.prototype.bindEvents = function() {
 	var that = this;
 
-	this.$container.find('*').off();
+	this.$container.find('*.PaneTrackMocks').off();
 
-	this.$container.on('click', 'button[data-action=preview]', function () {
+	this.$container.on('click.PaneTrackMocks', 'button[data-action=preview]', function () {
 		var mockData = decodeURI($(this).data('mockData'));
 		that.preview.setContent(mockData).show();
 	});

@@ -35,24 +35,24 @@ PaneMockSetList.prototype.draw = function (){
 PaneMockSetList.prototype.bindEvents = function (){
     var that = this;
 
-    this.$container.find('*').off();
+    this.$container.find('*.PaneMockSetList').off();
 
     // Activate mocks in mock set
-    this.$container.on('click', 'button[data-action=activate]', function() {
+    this.$container.on('click.PaneMockSetList', 'button[data-action=activate]', function() {
         that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {
             console.log('Activated mocks in mock set.');
         });
     });
 
     // Deactivate mocks in mock set
-    this.$container.on('click', 'button[data-action=deactivate]', function() {
+    this.$container.on('click.PaneMockSetList', 'button[data-action=deactivate]', function() {
         that.apiBridge.deactivateMockSet($(this).data('mockset-id'), function() {
             console.log('Deactivated mocks in mock set.');
         });
     });
 
     // Edit mock set
-    this.$container.on('click', 'button[data-action=edit]', function() {
+    this.$container.on('click.PaneMockSetList', 'button[data-action=edit]', function() {
         var updateMockPane = new PaneCreateMockSet();
         
         that.apiBridge.getMockSet($(this).data('mockset-id'), function (mockSet) {
@@ -62,7 +62,7 @@ PaneMockSetList.prototype.bindEvents = function (){
     });
 
     // Delete mock set
-   this.$container.on('click', 'button[data-action=delete]', function() {
+   this.$container.on('click.PaneMockSetList', 'button[data-action=delete]', function() {
         that.apiBridge.deleteMockSet($(this).data('mockset-id'), function() {
             console.log('Deleted mock set: ', $(this).data('mockset-id'));
             that.draw();
