@@ -25,6 +25,7 @@ PaneMockList.prototype.draw = function() {
 			rowContent += '<td><input data-mock-id="' + mockData.id + '" data-action="enableMock" type="checkbox" id="enable_' + mockData.id + '" ' + (mockData.enabled ? 'checked' : '') + '></td>';
 			rowContent += '<td><label for="enable_' + mockData.id + '">' + mockData.name + '</label></td>';
 			rowContent += '<td>' + mockData.description + '</td>';
+			rowContent += '<td>' + mockData.request.uri + '</td>';
 			rowContent += '<td><span class="mockActivated" data-mock-action="displayTrackedMock" data-mock-id="' + mockData.id + '"></span></td>';
 			rowContent += '<td>';
 			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="delete">Delete</button>';
