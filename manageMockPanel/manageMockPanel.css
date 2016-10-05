@@ -88,3 +88,35 @@
 
 }
 
+#PaneLog .consoleLog {
+}
+
+#PaneLog .consoleLog .logEntry {
+    border-bottom: 1px solid #888;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+#PaneLog .consoleLog .logEntry {
+    background-repeat: no-repeat;
+}
+
+#PaneLog .consoleLog .logEntry.warn {
+    background-image: url('../img/icon_warning.gif');
+}
+
+#PaneLog .consoleLog .logEntry.error {
+    background-image: url('../img/icon_error.gif');
+}
+
+#PaneLog .consoleLog .logEntry.info {
+    background-image: url('../img/icon_info.gif');
+}
+
+#PaneLog .consoleLog .logEntry pre {
+    margin:0;
+    padding:0;
+    padding-left: 20px;
+}
+
+

@@ -5,6 +5,11 @@ var PaneTrackMocks = function() {
 	this.preview = new UiPreview();				// The preview window object
 
 	this.bindEvents();
+
+	console.log('SOME LOGS');
+	console.warn('SOME LOGS', ['foo', 1, 2]);
+	console.info('SOME LOGS', {'foo':'bar', 'test':[1, 2, 4, 8, 16]});
+	console.error('Huuuu');
 };
 
 PaneTrackMocks.prototype.draw = function() {
