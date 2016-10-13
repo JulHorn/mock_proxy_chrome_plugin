@@ -68,4 +68,30 @@ PaneMockSetList.prototype.bindEvents = function (){
             that.draw();
         });
     });
+
+    // Activates all mock sets
+    this.$container.on('click.PaneMockSetList', 'button[data-action=activateAllSets]', function() {
+        that.apiBridge.getMockSetList(function (mockSetList) {
+
+            // Activate mock sets
+            mockSetList.forEach(function (mockSetData) {
+                that.apiBridge.activateMockSet(mockSetData.id, function(){
+                    console.log("Mockset " + mockSetData.name + " was activated.");
+                });
+            });
+        });
+    });
+
+    // Deactivates all mock sets
+    this.$container.on('click.PaneMockSetList', 'button[data-action=deactivateAllSets]', function() {
+        that.apiBridge.getMockSetList(function (mockSetList) {
+
+            // Deactivate mock sets
+            mockSetList.forEach(function (mockSetData) {
+                that.apiBridge.deactivateMockSet(mockSetData.id, function(){
+                    console.log("Mockset " + mockSetData.name + " was deactivated.");
+                });
+            });
+        });
+    });
 };
