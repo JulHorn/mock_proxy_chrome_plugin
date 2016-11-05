@@ -28,10 +28,14 @@ PaneCreateMock.prototype.bindEvents = function() {
 			'id': $('#form_id').val(),
 			'name': $('#form_name').val(),
 			'description': $('#form_description').val(),
-			'requestUri': $('#form_requestUri').val(),
-			'requestMethod': $('#form_requestMethod').val(),
-			'requestBody': $('#form_requestBody').val(),
-			'responseBody': $('#form_responseBody').val()
+			'request': {
+				'uri': $('#form_requestUri').val(),
+				'method': $('#form_requestMethod').val(),
+				'body': $('#form_requestBody').val()
+			},
+			'response': {
+				'body': $('#form_responseBody').val()
+			}
 		};
 
 		// Send create/update request to server
@@ -45,7 +49,7 @@ PaneCreateMock.prototype.bindEvents = function() {
 };
 
 // Fills the the create new mock form
-PaneCreateMock.prototype.fillCreateMockFields = function (id, name, desc, requestUri, method, requestBody, responseBody) {
+PaneCreateMock.prototype.fillCreateMockFields = function (id, name, desc, requestUri, requestMethod, requestBody, responseBody) {
 	var $createMockButton = $('#manuallyCreateMock');
 	var $idField = $('#form_id');
 	var $nameField = $('#form_name');
@@ -64,7 +68,7 @@ PaneCreateMock.prototype.fillCreateMockFields = function (id, name, desc, reques
 
 	// Fill pane
 	$requestUriField.val(requestUri);
-	$requestMethodField.val(method);
+	$requestMethodField.val(requestMethod);
 	$responseBodyField.val(responseBodyFormatted);
 
 	// Only set fields if value is not undefined to avoid the text

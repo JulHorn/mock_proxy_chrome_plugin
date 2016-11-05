@@ -22,11 +22,11 @@ PaneShowRequests.prototype.draw = function() {
 		// Draw table content
 		requestList.forEach(function (entry) {
 			var rowContent = '';
-			rowContent += '<td><label>' + entry.requestUri + '</label></td>';
-			rowContent += '<td><label>' + entry.method + '</label></td>';
+			rowContent += '<td><label>' + entry.request.uri + '</label></td>';
+			rowContent += '<td><label>' + entry.request.method + '</label></td>';
 			rowContent += '<td>';
 			rowContent += '<button data-request-id="' + entry.id + '" data-action="addToMock">Add</button>';
-			rowContent += '<button data-request-data="' + encodeURI(entry.response) + '" data-action="requestPreview">Preview</button>';
+			rowContent += '<button data-request-data="' + encodeURI(entry.response.body) + '" data-action="requestPreview">Preview</button>';
 			rowContent += '</td>';
 
 			tableContent += '<tr>' + rowContent + '</tr>';
@@ -62,12 +62,12 @@ PaneShowRequests.prototype.bindEvents = function() {
 		that.apiBridge.getRequest($(this).data('request-id'), function (request) {
 			// Check if the request body is an empty object and call the create mock method with null if it is the case
 			// to avoid the [Object object] string
-			if(request.message.requestBody && request.message.requestBody != null && Object.keys(request.message.requestBody).length > 0) {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.requestUri,
-					request.message.method, request.message.requestBody, request.message.response);
+			if(request.message.request.body && request.message.request.body != null && Object.keys(request.message.request.body).length > 0) {
+				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.request.uri,
+					request.message.request.method, request.message.request.body, request.message.response.body);
 			} else {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.requestUri,
-					request.message.method, null, request.message.response);
+				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.request.uri,
+					request.message.request.method, null, request.message.response.body);
 			}
 		});
 	});

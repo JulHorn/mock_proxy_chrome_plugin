@@ -35,7 +35,7 @@ PaneMockList.prototype.draw = function() {
 
 			tableContent += '<tr>' + rowContent + '</tr>';
 		});
-		
+
 		$contentTableBody.append($(tableContent));
 	});
 };
@@ -82,7 +82,7 @@ PaneMockList.prototype.bindEvents = function() {
 
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
 			$updateMockPane.fillCreateMockFields(mock.message.id, mock.message.name,
-				mock.message.description, mock.message.requestUri, mock.message.requestMethod, mock.message.requestBody, mock.message.responseBody);
+				mock.message.description, mock.message.request.uri, mock.message.request.method, mock.message.request.body, mock.message.response.body);
 		});
 	});
 
