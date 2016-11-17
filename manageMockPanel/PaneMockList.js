@@ -81,8 +81,8 @@ PaneMockList.prototype.bindEvents = function() {
 		var $updateMockPane = new PaneCreateMock();
 
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
-			$updateMockPane.fillCreateMockFields(mock.message.id, mock.message.name,
-				mock.message.description, mock.message.request.uri, mock.message.request.method, mock.message.request.body, mock.message.response.body);
+			$updateMockPane.fillCreateMockFields(mock.id, mock.name,
+				mock.description, mock.request.uri, mock.request.method, mock.request.body, mock.response.body);
 		});
 	});
 
