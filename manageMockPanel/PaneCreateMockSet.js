@@ -4,6 +4,7 @@ var PaneCreateMockSet = function(navigation) {
     this.$form = $('#formManuallyCreateMockSet');
     this.$multiSelect = $('#mockSetSelecter');
     this.apiBridge = new ApiBridge();
+	this.selectedMockIds = []; // memory for selected mocks
     this.bindEvents();
 
 	// Make multi select box fancy
@@ -68,6 +69,7 @@ PaneCreateMockSet.prototype.draw = function() {
 		mockList.forEach(function (mock) {
 			that.$multiSelect.multiSelect('addOption', { value: mock.id, text: mock.name});
 		});
+		that.updateMockSelectField();
 	});
 
 };
@@ -98,11 +100,18 @@ PaneCreateMockSet.prototype.bindEvents = function() {
 	});
 };
 
+
+PaneCreateMockSet.prototype.updateMockSelectField = function() {
+	this.$multiSelect.multiSelect('select', this.selectedMockIds);
+};
+
 PaneCreateMockSet.prototype.fillFields = function (id, name, description, mockIds) {
 
 	var $idField = $('#set_form_id');
 	var $nameField = $('#set_form_name');
 	var $descField = $('#set_form_description');
+
+	this.selectedMockIds = mockIds;
 
 	// Go to create tab
 	new UiNavigation().switchPanel('PaneCreateMockSet');
@@ -122,5 +131,5 @@ PaneCreateMockSet.prototype.fillFields = function (id, name, description, mockId
 		$descField.val(description);
 	}
 
-	this.$multiSelect.multiSelect('select', mockIds);
+	this.updateMockSelectField();
 };

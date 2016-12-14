@@ -9,7 +9,7 @@ PaneMockSetList.prototype.draw = function (){
 
     var $contentTableBody = that.$container.find('tbody');
     // Remove old content in order to add data to the already existing data and draw the table anew
-    $contentTableBody.empty()
+    $contentTableBody.empty();
 
     this.apiBridge.getMockSetList(function (mockSetList) {
         var tableContent = '';
@@ -53,7 +53,8 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Edit mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=edit]', function() {
-        var updateMockPane = new PaneCreateMockSet();
+        var uin = new UiNavigation();
+        var updateMockPane = uin.getPane('PaneCreateMockSet');
         
         that.apiBridge.getMockSet($(this).data('mockset-id'), function (mockSet) {
             updateMockPane.fillFields(mockSet.message.id, mockSet.message.name,
