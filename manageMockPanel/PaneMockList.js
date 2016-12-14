@@ -1,11 +1,21 @@
 // Constructor to init stuff
 var PaneMockList = function() {
 
+
+	if (window.mockListSingleton) {
+		return window.mockListSingleton;
+	}
+
 	this.$container = $('#PaneMockList');		// The corresponding pane
 	this.apiBridge = new ApiBridge();			// The object to communicate with the proxy server
 	this.preview = new UiPreview();				// The preview window object
 
 	this.bindEvents();
+
+
+// Assign singleton object
+	window.mockListSingleton = this;
+	return this;
 };
 
 // Draw this pane
@@ -14,7 +24,11 @@ PaneMockList.prototype.draw = function() {
 
 	// Remove old content in order to add data to the already existing data and draw the table anew
 	var $contentTableBody = that.$container.find('tbody');
+	//console.log("Body:");
+	//console.log($contentTableBody);
+	//console.log("Clear");
 	$contentTableBody.empty();
+	//console.log($contentTableBody);
 
 	this.apiBridge.getMockList(function (mockList) {
 		var tableContent = '';
@@ -78,11 +92,17 @@ PaneMockList.prototype.bindEvents = function() {
 
 	// Edit mock
 	this.$container.on('click.PaneMockList', 'button[data-action=edit]', function() {
-		var $updateMockPane = new PaneCreateMock();
-
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
-			$updateMockPane.fillCreateMockFields(mock.message.id, mock.message.name,
-				mock.message.description, mock.message.requestUri, mock.message.requestMethod, mock.message.requestBody, mock.message.responseBody);
+			console.warn(mock.message.description);
+			new UiNavigation().switchPanel('PaneCreateMock', {
+				'id': mock.message.id,
+				'name': mock.message.name,
+				'desc': mock.message.description,
+				'requestUri': mock.message.requestUri,
+				'method': mock.message.requestMethod,
+				'requestBody': mock.message.requestBody,
+				'responseBody': mock.message.responseBody
+			});
 		});
 	});
 
@@ -120,4 +140,3 @@ PaneMockList.prototype.bindEvents = function() {
 		});
 	});
 };
-
