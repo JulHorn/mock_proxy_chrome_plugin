@@ -53,12 +53,13 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Edit mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=edit]', function() {
-        var uin = new UiNavigation();
-        var updateMockPane = uin.getPane('PaneCreateMockSet');
-        
         that.apiBridge.getMockSet($(this).data('mockset-id'), function (mockSet) {
-            updateMockPane.fillFields(mockSet.message.id, mockSet.message.name,
-                    mockSet.message.description, mockSet.message.mockIds);
+            new UiNavigation().switchPanel('PaneCreateMockSet', {
+                'id': mockSet.message.id,
+                'name': mockSet.message.name,
+                'description': mockSet.message.description,
+                'mockIds': mockSet.message.mockIds
+            });
         });   
     });
 
