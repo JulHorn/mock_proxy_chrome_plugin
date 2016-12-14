@@ -93,7 +93,6 @@ PaneMockList.prototype.bindEvents = function() {
 	// Edit mock
 	this.$container.on('click.PaneMockList', 'button[data-action=edit]', function() {
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
-			console.warn(mock.message.description);
 			new UiNavigation().switchPanel('PaneCreateMock', {
 				'id': mock.message.id,
 				'name': mock.message.name,

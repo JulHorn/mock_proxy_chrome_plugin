@@ -64,11 +64,25 @@ PaneShowRequests.prototype.bindEvents = function() {
 			// Check if the request body is an empty object and call the create mock method with null if it is the case
 			// to avoid the [Object object] string
 			if(request.message.requestBody && request.message.requestBody != null && Object.keys(request.message.requestBody).length > 0) {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.requestUri,
-					request.message.method, request.message.requestBody, request.message.response);
+				new UiNavigation().switchPanel('PaneCreateMock', {
+					'id': null,
+					'name': null,
+					'desc': null,
+					'requestUri': request.message.requestUri,
+					'method': request.message.method,
+					'requestBody': request.message.requestBody,
+					'responseBody': request.message.response
+				});
 			} else {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.requestUri,
-					request.message.method, null, request.message.response);
+				new UiNavigation().switchPanel('PaneCreateMock', {
+					'id': null,
+					'name': null,
+					'desc': null,
+					'requestUri': request.message.requestUri,
+					'method': request.message.method,
+					'requestBody': null,
+					'responseBody': request.message.response
+				});
 			}
 		});
 	});
