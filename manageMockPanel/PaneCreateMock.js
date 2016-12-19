@@ -62,23 +62,37 @@ PaneCreateMock.prototype.bindEvents = function() {
 	this.$container.find('*.PaneCreateMock').off();
 
 	// Jquery serialize does not create the data as we want it, grml
+	// Submit the data and go back to mock list
 	this.$form.on('submit.PaneCreateMock', function (event) {
 		event.preventDefault();
-		var data = {
-			'id': $('#form_id').val(),
-			'name': $('#form_name').val(),
-			'description': $('#form_description').val(),
-			'requestUri': $('#form_requestUri').val(),
-			'requestMethod': $('#form_requestMethod').val(),
-			'requestBody': $('#form_requestBody').val(),
-			'responseBody': $('#form_responseBody').val()
-		};
 
 		// Send create/update request to server
-		that.apiBridge.createMock(data, function (response) {
+		that.apiBridge.createMock(that._getRequestData(), function (response) {
 			that.draw();
 
 			new UiNavigation().switchPanel('PaneMockList');
 		});
 	});
+
+	// Update the mock without going to the mock list
+	this.$form.on('click.PaneMockList', 'button[data-action=apply]', function (event) {
+		event.preventDefault();
+
+		// Send create/update request to server
+		that.apiBridge.createMock(that._getRequestData(), function (response) {
+		});
+	});
+};
+
+// Gets the data from the form fields, creates an object out of them and returns it for further usage for the createMock request
+PaneCreateMock.prototype._getRequestData = function () {
+ return {
+	 'id': $('#form_id').val(),
+	 'name': $('#form_name').val(),
+	 'description': $('#form_description').val(),
+	 'requestUri': $('#form_requestUri').val(),
+	 'requestMethod': $('#form_requestMethod').val(),
+	 'requestBody': $('#form_requestBody').val(),
+	 'responseBody': $('#form_responseBody').val()
+ };
 };
