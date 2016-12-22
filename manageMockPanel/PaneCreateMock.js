@@ -65,21 +65,36 @@ PaneCreateMock.prototype.bindEvents = function() {
 	// Submit the data and go back to mock list
 	this.$form.on('submit.PaneCreateMock', function (event) {
 		event.preventDefault();
+		var requestData = that._getRequestData();
 
-		// Send create/update request to server
-		that.apiBridge.createMock(that._getRequestData(), function (response) {
-			that.draw();
-
-			new UiNavigation().switchPanel('PaneMockList');
+		// Send create/update request to server and enable/disable the mock afterwards
+		that.apiBridge.createMock(requestData, function (response) {
+			if(that.$container.find('#activateMockCheckbox').is(':checked')){
+				that.apiBridge.enableMock(requestData.id, function () {
+					that.draw();
+					new UiNavigation().switchPanel('PaneMockList');
+				});
+			} else {
+				that.apiBridge.disableMock(requestData.id, function () {
+					that.draw();
+					new UiNavigation().switchPanel('PaneMockList');
+				})
+			}
 		});
 	});
 
-	// Update the mock without going to the mock list
+	// Update the mock without going to the mock list and enable/disable the mock afterwards
 	this.$form.on('click.PaneMockList', 'button[data-action=apply]', function (event) {
 		event.preventDefault();
+		var requestData = that._getRequestData();
 
 		// Send create/update request to server
-		that.apiBridge.createMock(that._getRequestData(), function (response) {
+		that.apiBridge.createMock(requestData, function (response) {
+			if(that.$container.find('#activateMockCheckbox').is(':checked')){
+				that.apiBridge.enableMock(requestData.id, function () {});
+			} else {
+				that.apiBridge.disableMock(requestData.id, function () {})
+			}
 		});
 	});
 };
