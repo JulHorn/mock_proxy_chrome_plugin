@@ -17,6 +17,7 @@ PaneCreateMock.prototype.draw = function(data) {
 	var $requestMethodField = $('#form_requestMethod');
 	var $requestBodyField = $('#form_requestBody');
 	var $responseBodyField = $('#form_responseBody');
+	var that = this;
 
 	// Reset form to default sate before doing anything
 	this.$form.trigger('reset');
@@ -33,7 +34,6 @@ PaneCreateMock.prototype.draw = function(data) {
 
 	// Fill pane
 	$requestUriField.val(data.requestUri);
-	console.warn(data.method);
 	$requestMethodField.val(data.method);
 	$responseBodyField.val(responseBodyFormatted);
 
@@ -54,6 +54,17 @@ PaneCreateMock.prototype.draw = function(data) {
 	if (data.requestBody) {
 		$requestBodyField.val(data.requestBody);
 	}
+	
+	// Check the checkbox, if the mock is enabled
+	this.apiBridge.getMockList(function (mockList) {
+		var resultMock = mockList.find(function (mock) {
+			return mock.id === data.id;
+		});
+
+		if(resultMock && resultMock.enabled) {
+			that.$container.find('#activateMockCheckbox').prop('checked', true);
+		}
+	});
 };
 
 // Bind events to send the request to the server
@@ -70,12 +81,12 @@ PaneCreateMock.prototype.bindEvents = function() {
 		// Send create/update request to server and enable/disable the mock afterwards
 		that.apiBridge.createMock(requestData, function (response) {
 			if(that.$container.find('#activateMockCheckbox').is(':checked')){
-				that.apiBridge.enableMock(requestData.id, function () {
+				that.apiBridge.enableMock(response.id, function () {
 					that.draw();
 					new UiNavigation().switchPanel('PaneMockList');
 				});
 			} else {
-				that.apiBridge.disableMock(requestData.id, function () {
+				that.apiBridge.disableMock(response.id, function () {
 					that.draw();
 					new UiNavigation().switchPanel('PaneMockList');
 				})
@@ -91,9 +102,9 @@ PaneCreateMock.prototype.bindEvents = function() {
 		// Send create/update request to server
 		that.apiBridge.createMock(requestData, function (response) {
 			if(that.$container.find('#activateMockCheckbox').is(':checked')){
-				that.apiBridge.enableMock(requestData.id, function () {});
+				that.apiBridge.enableMock(response.id, function () {});
 			} else {
-				that.apiBridge.disableMock(requestData.id, function () {})
+				that.apiBridge.disableMock(response.id, function () {})
 			}
 		});
 	});
