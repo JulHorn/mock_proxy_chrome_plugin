@@ -42,9 +42,9 @@ PaneMockList.prototype.draw = function() {
 			rowContent += '<td>' + mockData.request.uri + '</td>';
 			rowContent += '<td><span class="mockActivated" data-mock-action="displayTrackedMock" data-mock-id="' + mockData.id + '"></span></td>';
 			rowContent += '<td>';
-			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="delete">Delete</button>';
-			rowContent += '<button data-mock-data="' + encodeURI(mockData.response.body) + '" data-action="preview">Preview</button>';
 			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="edit">Edit</button>';
+			rowContent += '<button data-mock-data="' + encodeURI(mockData.response.body) + '" data-action="preview">Preview</button>';
+			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="delete">Delete</button>';
 			rowContent += '</td>';
 
 			tableContent += '<tr>' + rowContent + '</tr>';
