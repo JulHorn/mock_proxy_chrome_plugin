@@ -39,14 +39,14 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Activate mocks in mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=activate]', function() {
-        that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {
+        that.apiBridge.enableMockSet($(this).data('mockset-id'), function() {
             console.log('Activated mocks in mock set.');
         });
     });
 
     // Deactivate mocks in mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=deactivate]', function() {
-        that.apiBridge.deactivateMockSet($(this).data('mockset-id'), function() {
+        that.apiBridge.disableMockSet($(this).data('mockset-id'), function() {
             console.log('Deactivated mocks in mock set.');
         });
     });
@@ -73,27 +73,15 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Activates all mock sets
     this.$container.on('click.PaneMockSetList', 'button[data-action=activateAllSets]', function() {
-        that.apiBridge.getMockSetList(function (mockSetList) {
-
-            // Activate mock sets
-            mockSetList.forEach(function (mockSetData) {
-                that.apiBridge.activateMockSet(mockSetData.id, function(){
-                    console.log("Mockset " + mockSetData.name + " was activated.");
-                });
-            });
+        that.apiBridge.enableAllMockSets(function () {
+            console.log('All mock sets activated.');
         });
     });
 
     // Deactivates all mock sets
     this.$container.on('click.PaneMockSetList', 'button[data-action=deactivateAllSets]', function() {
-        that.apiBridge.getMockSetList(function (mockSetList) {
-
-            // Deactivate mock sets
-            mockSetList.forEach(function (mockSetData) {
-                that.apiBridge.deactivateMockSet(mockSetData.id, function(){
-                    console.log("Mockset " + mockSetData.name + " was deactivated.");
-                });
-            });
+        that.apiBridge.disableAllMockSets(function () {
+            console.log('All mock sets deactivated.');
         });
     });
 };
