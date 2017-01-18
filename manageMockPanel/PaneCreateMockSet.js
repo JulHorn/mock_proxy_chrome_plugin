@@ -21,15 +21,15 @@ PaneCreateMockSet.prototype.draw = function(data) {
 	this.$multiSelect.multiSelect('deselect_all');
 
 	// Fill fields
-	if (data.id) {
+	if (data && data.id) {
 		$idField.val(data.id);
 	}
 
-	if (data.name) {
+	if (data && data.name) {
 		$nameField.val(data.name);
 	}
 
-	if (data.description) {
+	if (data && data.description) {
 		$descField.val(data.description);
 	}
 
@@ -39,8 +39,10 @@ PaneCreateMockSet.prototype.draw = function(data) {
 			that.$multiSelect.multiSelect('addOption', { value: mock.id, text: mock.name});
 		});
 
-		// Fill selected pane with selected mocks
-		that.$multiSelect.multiSelect('select', data.mockIds);
+		if(data) {
+			// Fill selected pane with selected mocks
+			that.$multiSelect.multiSelect('select', data.mockIds);
+		}
 	});
 };
 
