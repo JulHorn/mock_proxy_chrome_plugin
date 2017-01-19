@@ -28,7 +28,7 @@ PaneCreateMock.prototype.draw = function(data) {
 
 	// Fill pane
 	that.$requestUriField.val(data.requestUri);
-	that.$requestMethodField.val(data.method);
+	that.$requestMethodField.val(data.requestMethod);
 	that.$responseBodyField.val(responseBodyFormatted);
 
 	// Only set fields if value is not undefined to avoid the text
@@ -43,8 +43,8 @@ PaneCreateMock.prototype.draw = function(data) {
 		that.$nameField.val(data.name);
 	}
 
-	if (data.desc) {
-		that.$descField.val(data.desc);
+	if (data.description) {
+		that.$descField.val(data.description);
 	}
 
 	if (data.requestBody) {

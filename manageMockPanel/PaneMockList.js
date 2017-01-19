@@ -96,9 +96,9 @@ PaneMockList.prototype.bindEvents = function() {
 			new UiNavigation().switchPanel('PaneCreateMock', {
 				'id': mock.message.id,
 				'name': mock.message.name,
-				'desc': mock.message.description,
+				'description': mock.message.description,
 				'requestUri': mock.message.requestUri,
-				'method': mock.message.requestMethod,
+				'requestMethod': mock.message.requestMethod,
 				'requestBody': mock.message.requestBody,
 				'responseBody': mock.message.responseBody
 			});
