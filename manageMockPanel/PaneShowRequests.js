@@ -67,9 +67,9 @@ PaneShowRequests.prototype.bindEvents = function() {
 				new UiNavigation().switchPanel('PaneCreateMock', {
 					'id': null,
 					'name': null,
-					'desc': null,
+					'description': null,
 					'requestUri': request.message.requestUri,
-					'method': request.message.method,
+					'requestMethod': request.message.method,
 					'requestBody': request.message.requestBody,
 					'responseBody': request.message.response
 				});
@@ -77,9 +77,9 @@ PaneShowRequests.prototype.bindEvents = function() {
 				new UiNavigation().switchPanel('PaneCreateMock', {
 					'id': null,
 					'name': null,
-					'desc': null,
+					'description': null,
 					'requestUri': request.message.requestUri,
-					'method': request.message.method,
+					'requestMethod': request.message.method,
 					'requestBody': null,
 					'responseBody': request.message.response
 				});
