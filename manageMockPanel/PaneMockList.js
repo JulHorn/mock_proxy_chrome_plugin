@@ -1,11 +1,21 @@
 // Constructor to init stuff
 var PaneMockList = function() {
 
+
+	if (window.mockListSingleton) {
+		return window.mockListSingleton;
+	}
+
 	this.$container = $('#PaneMockList');		// The corresponding pane
 	this.apiBridge = new ApiBridge();			// The object to communicate with the proxy server
 	this.preview = new UiPreview();				// The preview window object
 
 	this.bindEvents();
+
+
+// Assign singleton object
+	window.mockListSingleton = this;
+	return this;
 };
 
 // Draw this pane
@@ -14,7 +24,11 @@ PaneMockList.prototype.draw = function() {
 
 	// Remove old content in order to add data to the already existing data and draw the table anew
 	var $contentTableBody = that.$container.find('tbody');
+	//console.log("Body:");
+	//console.log($contentTableBody);
+	//console.log("Clear");
 	$contentTableBody.empty();
+	//console.log($contentTableBody);
 
 	this.apiBridge.getMockList(function (mockList) {
 		var tableContent = '';
@@ -28,9 +42,9 @@ PaneMockList.prototype.draw = function() {
 			rowContent += '<td>' + mockData.request.uri + '</td>';
 			rowContent += '<td><span class="mockActivated" data-mock-action="displayTrackedMock" data-mock-id="' + mockData.id + '"></span></td>';
 			rowContent += '<td>';
-			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="delete">Delete</button>';
-			rowContent += '<button data-mock-data="' + encodeURI(mockData.response.body) + '" data-action="preview">Preview</button>';
 			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="edit">Edit</button>';
+			rowContent += '<button data-mock-data="' + encodeURI(mockData.response.body) + '" data-action="preview">Preview</button>';
+			rowContent += '<button data-mock-id="' + mockData.id + '" data-action="delete">Delete</button>';
 			rowContent += '</td>';
 
 			tableContent += '<tr>' + rowContent + '</tr>';
@@ -78,11 +92,16 @@ PaneMockList.prototype.bindEvents = function() {
 
 	// Edit mock
 	this.$container.on('click.PaneMockList', 'button[data-action=edit]', function() {
-		var $updateMockPane = new PaneCreateMock();
-
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
-			$updateMockPane.fillCreateMockFields(mock.id, mock.name,
-				mock.description, mock.request.uri, mock.request.method, mock.request.body, mock.response.body);
+			new UiNavigation().switchPanel('PaneCreateMock', {
+				'id': mock.message.id,
+				'name': mock.message.name,
+				'description': mock.message.description,
+				'requestUri': mock.message.requestUri,
+				'requestMethod': mock.message.requestMethod,
+				'requestBody': mock.message.requestBody,
+				'responseBody': mock.message.responseBody
+			});
 		});
 	});
 
@@ -120,4 +139,3 @@ PaneMockList.prototype.bindEvents = function() {
 		});
 	});
 };
-

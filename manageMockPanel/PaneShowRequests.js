@@ -63,12 +63,26 @@ PaneShowRequests.prototype.bindEvents = function() {
 		that.apiBridge.getRequest($(this).data('request-id'), function (request) {
 			// Check if the request body is an empty object and call the create mock method with null if it is the case
 			// to avoid the [Object object] string
-			if(request.message.request.body && request.message.request.body != null && Object.keys(request.message.request.body).length > 0) {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.request.uri,
-					request.message.request.method, request.message.request.body, request.message.response.body);
+			if(request.message.requestBody && request.message.requestBody != null && Object.keys(request.message.requestBody).length > 0) {
+				new UiNavigation().switchPanel('PaneCreateMock', {
+					'id': null,
+					'name': null,
+					'description': null,
+					'requestUri': request.message.requestUri,
+					'requestMethod': request.message.method,
+					'requestBody': request.message.requestBody,
+					'responseBody': request.message.response
+				});
 			} else {
-				new PaneCreateMock().fillCreateMockFields(null, null, null, request.message.request.uri,
-					request.message.request.method, null, request.message.response.body);
+				new UiNavigation().switchPanel('PaneCreateMock', {
+					'id': null,
+					'name': null,
+					'description': null,
+					'requestUri': request.message.requestUri,
+					'requestMethod': request.message.method,
+					'requestBody': null,
+					'responseBody': request.message.response
+				});
 			}
 		});
 	});

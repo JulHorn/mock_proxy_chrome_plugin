@@ -9,7 +9,7 @@ PaneMockSetList.prototype.draw = function (){
 
     var $contentTableBody = that.$container.find('tbody');
     // Remove old content in order to add data to the already existing data and draw the table anew
-    $contentTableBody.empty()
+    $contentTableBody.empty();
 
     this.apiBridge.getMockSetList(function (mockSetList) {
         var tableContent = '';
@@ -39,25 +39,27 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Activate mocks in mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=activate]', function() {
-        that.apiBridge.activateMockSet($(this).data('mockset-id'), function() {
+        that.apiBridge.enableMockSet($(this).data('mockset-id'), function() {
             console.log('Activated mocks in mock set.');
         });
     });
 
     // Deactivate mocks in mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=deactivate]', function() {
-        that.apiBridge.deactivateMockSet($(this).data('mockset-id'), function() {
+        that.apiBridge.disableMockSet($(this).data('mockset-id'), function() {
             console.log('Deactivated mocks in mock set.');
         });
     });
 
     // Edit mock set
     this.$container.on('click.PaneMockSetList', 'button[data-action=edit]', function() {
-        var updateMockPane = new PaneCreateMockSet();
-        
         that.apiBridge.getMockSet($(this).data('mockset-id'), function (mockSet) {
-            updateMockPane.fillFields(mockSet.message.id, mockSet.message.name,
-                    mockSet.message.description, mockSet.message.mockIds);
+            new UiNavigation().switchPanel('PaneCreateMockSet', {
+                'id': mockSet.message.id,
+                'name': mockSet.message.name,
+                'description': mockSet.message.description,
+                'mockIds': mockSet.message.mockIds
+            });
         });   
     });
 
@@ -71,27 +73,15 @@ PaneMockSetList.prototype.bindEvents = function (){
 
     // Activates all mock sets
     this.$container.on('click.PaneMockSetList', 'button[data-action=activateAllSets]', function() {
-        that.apiBridge.getMockSetList(function (mockSetList) {
-
-            // Activate mock sets
-            mockSetList.forEach(function (mockSetData) {
-                that.apiBridge.activateMockSet(mockSetData.id, function(){
-                    console.log("Mockset " + mockSetData.name + " was activated.");
-                });
-            });
+        that.apiBridge.enableAllMockSets(function () {
+            console.log('All mock sets activated.');
         });
     });
 
     // Deactivates all mock sets
     this.$container.on('click.PaneMockSetList', 'button[data-action=deactivateAllSets]', function() {
-        that.apiBridge.getMockSetList(function (mockSetList) {
-
-            // Deactivate mock sets
-            mockSetList.forEach(function (mockSetData) {
-                that.apiBridge.deactivateMockSet(mockSetData.id, function(){
-                    console.log("Mockset " + mockSetData.name + " was deactivated.");
-                });
-            });
+        that.apiBridge.disableAllMockSets(function () {
+            console.log('All mock sets deactivated.');
         });
     });
 };
