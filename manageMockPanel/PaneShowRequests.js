@@ -24,6 +24,7 @@ PaneShowRequests.prototype.draw = function() {
 			var rowContent = '';
 			rowContent += '<td><label>' + entry.request.uri + '</label></td>';
 			rowContent += '<td><label>' + entry.request.method + '</label></td>';
+			rowContent += '<td><label>' + entry.info + '</label></td>';
 			rowContent += '<td>';
 			rowContent += '<button data-request-id="' + entry.id + '" data-action="addToMock">Add</button>';
 			rowContent += '<button data-request-data="' + encodeURI(entry.response.body) + '" data-action="requestPreview">Preview</button>';
