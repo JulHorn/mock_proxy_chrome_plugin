@@ -15,7 +15,7 @@ PaneCreateMock.prototype.draw = function(data) {
 	$('#form_id').val('');
 
 	// Hide the delete button if a mock is being created
-	that.$deleteButton.hide();
+	this.$deleteButton.hide();
 
 	// If no data was given do not try to fill anything in
 	if(!data) {
@@ -23,32 +23,31 @@ PaneCreateMock.prototype.draw = function(data) {
 	}
 
 	// Autoformat code
-	var responseBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(data.responseBody);
-	//var requestBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(data.requestBody);
+	var responseBodyFormatted = this.languageDetector.autoDetectLanguageAndFormatCode(data.response.body);
 
 	// Fill pane
-	that.$requestUriField.val(data.requestUri);
-	that.$requestMethodField.val(data.requestMethod);
-	that.$responseBodyField.val(responseBodyFormatted);
+	this.$requestUriField.val(data.request.uri);
+	this.$requestMethodField.val(data.request.method);
+	this.$responseBodyField.val(responseBodyFormatted);
 
 	// Only set fields if value is not undefined to avoid the text
 	// undefined in the text field
 	if (data.id) {
-		that.$idField.val(data.id);
+		this.$idField.val(data.id);
 		// Display delete button if a mock gets edited
-		that.$deleteButton.show();
+		this.$deleteButton.show();
 	}
 
 	if (data.name) {
-		that.$nameField.val(data.name);
+		this.$nameField.val(data.name);
 	}
 
 	if (data.description) {
-		that.$descField.val(data.description);
+		this.$descField.val(data.description);
 	}
 
-	if (data.requestBody) {
-		that.$requestBodyField.val(data.requestBody);
+	if (data.request.body) {
+		this.$requestBodyField.val(data.request.body);
 	}
 
 	// Check the checkbox, if the mock is enabled
@@ -72,19 +71,7 @@ PaneCreateMock.prototype.bindEvents = function() {
 	// Submit the data and go back to mock list
 	this.$form.on('submit.PaneCreateMock', function (event) {
 		event.preventDefault();
-		var data = {
-			'id': $('#form_id').val(),
-			'name': $('#form_name').val(),
-			'description': $('#form_description').val(),
-			'request': {
-				'uri': $('#form_requestUri').val(),
-				'method': $('#form_requestMethod').val(),
-				'body': $('#form_requestBody').val()
-			},
-			'response': {
-				'body': $('#form_responseBody').val()
-			}
-		};
+		var requestData = that._getRequestData();
 
 		// Send create/update request to server and enable/disable the mock afterwards
 		that.apiBridge.createMock(requestData, function (response) {
@@ -137,24 +124,25 @@ PaneCreateMock.prototype.bindEvents = function() {
 
 // Gets the data from the form fields, creates an object out of them and returns it for further usage for the createMock request
 PaneCreateMock.prototype._getRequestData = function () {
- 	var that = this;
-
 	return {
-	 'id': that.$idField.val(),
-	 'name': that.$nameField.val(),
-	 'description': that.$descField.val(),
-	 'requestUri': that.$requestUriField.val(),
-	 'requestMethod': that.$requestMethodField.val(),
-	 'requestBody': that.$requestBodyField.val(),
-	 'responseBody': that.$responseBodyField.val()
- };
+		'id': this.$idField.val(),
+		'name': this.$nameField.val(),
+		'description': this.$descField.val(),
+		'request': {
+			'uri': this.$requestUriField.val(),
+			'method': this.$requestMethodField.val(),
+			'body': this.$requestBodyField.val()
+		},
+		'response': {
+			'body': this.$responseBodyField.val()
+		}
+	};
 };
 
 // Provide form elements to avoid multiple declarations
 PaneCreateMock.prototype.__providePaneElements = function () {
 	this.$container = $('#PaneCreateMock');
 	this.$form = $('#formManuallyCreate');
-	this.$createMockButton = this.$container.find('#manuallyCreateMock');
 	this.$idField = this.$container.find('#form_id');
 	this.$nameField = this.$container.find('#form_name');
 	this.$descField = this.$container.find('#form_description');

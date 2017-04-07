@@ -12,7 +12,7 @@ PaneTrackMocks.prototype.draw = function() {
 
 	var $contentTableBody = that.$container.find('tbody');
 	// Remove old content in order to add data to the already existing data and draw the table anew
-	$contentTableBody.empty()
+	$contentTableBody.empty();
 
 	this.apiBridge.getReturnedMocks(5, function (mockList) {
 		var tableContent = '';
@@ -23,11 +23,11 @@ PaneTrackMocks.prototype.draw = function() {
 			rowContent += '<td>' + mock.name + '</td>';
 			rowContent += '<td>' + mock.description + '</td>';
 			rowContent += '<td>';
-			rowContent += '<button data-mock-data="' + encodeURI(mock.responseBody) + '" data-action="preview">Preview</button>';
+			rowContent += '<button data-mock-data="' + encodeURI(mock.response.body) + '" data-action="preview">Preview</button>';
 			rowContent += '</td>';
 
 			tableContent += '<tr>' + rowContent + '</tr>';
-		})
+		});
 
 		$contentTableBody.append($(tableContent));
 	});

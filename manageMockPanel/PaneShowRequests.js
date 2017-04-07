@@ -61,30 +61,32 @@ PaneShowRequests.prototype.bindEvents = function() {
 	// Get the request which is associated with the button and fill its data into the create mock pane
 	this.$container.on('click.PaneShowRequests', 'button[data-action=addToMock]', function() {
 		that.apiBridge.getRequest($(this).data('request-id'), function (request) {
-			// Check if the request body is an empty object and call the create mock method with null if it is the case
-			// to avoid the [Object object] string
-			if(request.message.requestBody && request.message.requestBody != null && Object.keys(request.message.requestBody).length > 0) {
-				new UiNavigation().switchPanel('PaneCreateMock', {
-					'id': null,
-					'name': null,
-					'description': null,
-					'requestUri': request.message.requestUri,
-					'requestMethod': request.message.method,
-					'requestBody': request.message.requestBody,
-					'responseBody': request.message.response
-				});
-			} else {
-				new UiNavigation().switchPanel('PaneCreateMock', {
-					'id': null,
-					'name': null,
-					'description': null,
-					'requestUri': request.message.requestUri,
-					'requestMethod': request.message.method,
-					'requestBody': null,
-					'responseBody': request.message.response
-				});
-			}
+			new UiNavigation().switchPanel('PaneCreateMock', that.transformRequestLogToMockObject(request));
 		});
 	});
+};
+
+// transform log entry to mock object
+PaneShowRequests.prototype.transformRequestLogToMockObject = function(requestLog) {
+	// Check if the request body is an empty object and call the create mock method with null if it is the case
+	// to avoid the [Object object] string
+	var body = "";
+	if(requestLog.message.request.body && requestLog.message.request.body !== null && Object.keys(requestLog.message.request.body).length > 0) {
+		body = requestLog.message.request.body;
+	}
+
+	return {
+		'id': null,
+		'name': null,
+		'description': null,
+		'request': {
+			'uri': requestLog.message.request.uri,
+			'method': requestLog.message.request.method,
+			'body': body
+		},
+		'response': {
+			'body': requestLog.message.response.body
+		}
+	}
 };
 

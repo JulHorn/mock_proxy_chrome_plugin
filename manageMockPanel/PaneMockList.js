@@ -93,15 +93,7 @@ PaneMockList.prototype.bindEvents = function() {
 	// Edit mock
 	this.$container.on('click.PaneMockList', 'button[data-action=edit]', function() {
 		that.apiBridge.getMock($(this).data('mockId'), function (mock) {
-			new UiNavigation().switchPanel('PaneCreateMock', {
-				'id': mock.message.id,
-				'name': mock.message.name,
-				'description': mock.message.description,
-				'requestUri': mock.message.requestUri,
-				'requestMethod': mock.message.requestMethod,
-				'requestBody': mock.message.requestBody,
-				'responseBody': mock.message.responseBody
-			});
+			new UiNavigation().switchPanel('PaneCreateMock', mock);
 		});
 	});
 
