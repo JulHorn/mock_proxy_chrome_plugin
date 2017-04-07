@@ -46,6 +46,10 @@ PaneCreateMock.prototype.draw = function(data) {
 		this.$descField.val(data.description);
 	}
 
+	if (data.statusCode) {
+		this.$statusCodeField.val(data.statusCode);
+	}
+
 	if (data.request.body) {
 		this.$requestBodyField.val(data.request.body);
 	}
@@ -128,6 +132,7 @@ PaneCreateMock.prototype._getRequestData = function () {
 		'id': this.$idField.val(),
 		'name': this.$nameField.val(),
 		'description': this.$descField.val(),
+		'statusCode': this.$statusCodeField.val(),
 		'request': {
 			'uri': this.$requestUriField.val(),
 			'method': this.$requestMethodField.val(),
@@ -146,6 +151,7 @@ PaneCreateMock.prototype.__providePaneElements = function () {
 	this.$idField = this.$container.find('#form_id');
 	this.$nameField = this.$container.find('#form_name');
 	this.$descField = this.$container.find('#form_description');
+	this.$statusCodeField = this.$container.find('#form_statusCode');
 	this.$requestUriField = this.$container.find('#form_requestUri');
 	this.$requestMethodField = this.$container.find('#form_requestMethod');
 	this.$requestBodyField = this.$container.find('#form_requestBody');

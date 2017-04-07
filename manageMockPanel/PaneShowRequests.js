@@ -24,6 +24,7 @@ PaneShowRequests.prototype.draw = function() {
 			var rowContent = '';
 			rowContent += '<td><label>' + entry.request.uri + '</label></td>';
 			rowContent += '<td><label>' + entry.request.method + '</label></td>';
+			rowContent += '<td><label>' + entry.statusCode + '</label></td>';
 			rowContent += '<td><label>' + entry.info + '</label></td>';
 			rowContent += '<td>';
 			rowContent += '<button data-request-id="' + entry.id + '" data-action="addToMock">Add</button>';
@@ -79,6 +80,7 @@ PaneShowRequests.prototype.transformRequestLogToMockObject = function(requestLog
 		'id': null,
 		'name': null,
 		'description': null,
+		'statusCode': requestLog.message.statusCode,
 		'request': {
 			'uri': requestLog.message.request.uri,
 			'method': requestLog.message.request.method,
