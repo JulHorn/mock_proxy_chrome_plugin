@@ -1,4 +1,7 @@
-# mock_proxy_chrome_plugin
+# Mock Proxy Chrome Plugin
+
+Note: This project was merged with the mock proxy project [mock proxy](https://github.com/mhn17/node-mock-proxy) and will only be developed further in that project.
+
 A simple chrome plugin to access the mock proxy of the [mock proxy](https://github.com/mhn17/node-mock-proxy) project for better usability. The mock proxy can be put between two systems. If a request reaches the mock server which is already mocked, then the corresponding mock will be returned. If that is not the case, then the request will be forwarded to the other system and its response will be returned.
 
 The chrome extension is still work in progress, so not every feature might work perfectly.
